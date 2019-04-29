@@ -356,7 +356,9 @@ function <SID>TExpandVars()
 	let l:hostn      = hostname()
 	let l:user       = exists("g:username") ? g:username :
 				     \ (exists("g:user") ? g:user : $USER)
-	let l:email      = exists("g:email") ? g:email : (l:user . "@" . l:hostn)
+	let l:author       = exists("g:author") ? g:author :$AUTHOR
+	let l:email      = exists("g:email") ? g:email : 
+					\ (exists("$MAIL") ? $MAIL : (l:user . "@" . l:hostn))
 	let l:guard      = toupper(substitute(l:filec, "[^a-zA-Z0-9]", "_", "g"))
 	let l:class      = substitute(l:filen, "\\([a-zA-Z]\\+\\)", "\\u\\1\\e", "g")
 	let l:macroclass = toupper(l:class)
@@ -388,6 +390,7 @@ function <SID>TExpandVars()
 	call <SID>TExpand("DATE",  l:date)
 	call <SID>TExpand("TIME",  l:time)
 	call <SID>TExpand("USER",  l:user)
+	call <SID>TExpand("AUTHOR",  l:author)
 	call <SID>TExpand("FDATE", l:fdate)
 	call <SID>TExpand("MONTH", l:month)
 	call <SID>TExpand("MONTHSHORT", l:monshort)
